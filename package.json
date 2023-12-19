@@ -19,6 +19,9 @@
     "devDependencies": {
         "prisma": "^5.7.1"
     },
+    "engines": {
+        "node": "21.4.0"
+    },
     "type": "module",
     "author": "Rukhshona",
     "license": "ISC",
