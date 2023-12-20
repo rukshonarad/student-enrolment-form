@@ -1,5 +1,6 @@
 import { studentService } from "../services/student.service.js";
 import { catchAsync } from "../utils/catch.async.js";
+import cors from "cors";
 class StudentController {
     create = catchAsync(async (req, res) => {
         const { body } = req;
