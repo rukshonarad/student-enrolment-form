@@ -1,6 +1,5 @@
 import { prisma } from "../prisma/index.js";
-import { catchAsync } from "../utils/catch.async.js";
-
+import { CustomError } from "../utils/customError.js";
 class StudentService {
     create = async (studentInput) => {
         const student = await prisma.student.create({
@@ -42,7 +41,7 @@ class StudentService {
                 updatedStudent
             };
         } catch (error) {
-            throw new Error(error);
+            throw new CustomError("Project does not exist", 404);
         }
     };
     getOne = async (id, studentId) => {
@@ -50,7 +49,10 @@ class StudentService {
             where: { id: id }
         });
         if (!student) {
-            throw new Error();
+            throw new CustomError("Student does not exists", 404);
+        }
+        if (student.studentId !== studentId) {
+            throw new CustomError("StudentId does not match", 403);
         }
         return student;
     };
