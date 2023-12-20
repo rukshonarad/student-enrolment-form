@@ -56,5 +56,17 @@ class StudentService {
         }
         return student;
     };
+    getAll = async () => {
+        const students = prisma.student.findMany({
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                email: true,
+                className: true
+            }
+        });
+        return students;
+    };
 }
 export const studentService = new StudentService();
