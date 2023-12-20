@@ -1,12 +1,16 @@
+import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+
 import { studentRouter } from "./src/routes/student.router.js";
+
 dotenv.config();
-app.use(cors());
+
 const app = express();
+
 app.use(express.json());
 
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 app.get("/health", (_, res) => {
