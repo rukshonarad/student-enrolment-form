@@ -1,4 +1,5 @@
 import { prisma } from "../prisma/index.js";
+import { catchAsync } from "../utils/catch.async.js";
 
 class StudentService {
     create = async (studentInput) => {
@@ -43,6 +44,15 @@ class StudentService {
         } catch (error) {
             throw new Error(error);
         }
+    };
+    getOne = async (id, studentId) => {
+        const student = await prisma.student.findUnique({
+            where: { id: id }
+        });
+        if (!student) {
+            throw new Error();
+        }
+        return student;
     };
 }
 export const studentService = new StudentService();
