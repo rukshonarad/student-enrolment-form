@@ -26,5 +26,12 @@ class StudentController {
             data: updatedStudent
         });
     });
+    getOne = catchAsync(async (req, res) => {
+        const { studentId, params } = req;
+        const student = await studentService.getOne(params.id, studentId);
+        res.status(200).json({
+            data: student
+        });
+    });
 }
 export const studentController = new StudentController();
