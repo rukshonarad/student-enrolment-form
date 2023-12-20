@@ -15,23 +15,15 @@ class StudentController {
     });
 
     updateProfile = catchAsync(async (req, res) => {
-        const { email, firstName, lastName, className } = req.body;
-        if (!email || !firstName || !lastName || !className) {
-            return res
-                .status(400)
-                .json({ message: "Please provide all required fields." });
-        }
-        const studentInput = {
-            email,
-            firstName,
-            lastName,
-            className
-        };
+        const {
+            params: { id },
+            body: { input }
+        } = req;
 
-        await studentService.updateProfile(req.studentId, studentInput);
+        const updatedStudent = await studentService.updateProfile(id, input);
 
         res.status(200).json({
-            message: "Profile was updated successfully!"
+            data: updatedStudent
         });
     });
 }

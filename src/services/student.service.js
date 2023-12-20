@@ -11,11 +11,11 @@ class StudentService {
             }
         });
     };
-    updateProfile = async (studentId, studentInput) => {
+    updateProfile = async (id, input) => {
         try {
             const existingStudent = await prisma.student.findUnique({
                 where: {
-                    id: studentId
+                    id: id
                 }
             });
 
@@ -27,10 +27,13 @@ class StudentService {
 
             const updatedStudent = await prisma.student.update({
                 where: {
-                    id: studentId
+                    id: id
                 },
                 data: {
-                    ...studentInput
+                    firstName: input.firstName || existingStudent.firstName,
+                    lastName: input.lastName || existingStudent.lastName,
+                    email: input.email || existingStudent.email,
+                    className: input.className || existingStudent.className
                 }
             });
 
@@ -38,10 +41,7 @@ class StudentService {
                 updatedStudent
             };
         } catch (error) {
-            console.error("Error updating profile:", error);
-            return {
-                error: "An error occurred while updating the profile"
-            };
+            throw new Error(error);
         }
     };
 }
