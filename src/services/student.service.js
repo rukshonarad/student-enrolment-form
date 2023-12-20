@@ -68,5 +68,19 @@ class StudentService {
         });
         return students;
     };
+    delete = async (id) => {
+        const student = await prisma.student.findUnique({
+            where: {
+                id: id
+            }
+        });
+
+        const updatedStudent = await prisma.student.delete({
+            where: {
+                id: id
+            }
+        });
+        return updatedStudent;
+    };
 }
 export const studentService = new StudentService();

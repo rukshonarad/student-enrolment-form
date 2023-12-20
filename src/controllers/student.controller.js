@@ -39,5 +39,10 @@ class StudentController {
             data: students
         });
     });
+    delete = catchAsync(async (req, res) => {
+        const { studentId, params } = req;
+        await studentService.delete(params.id, studentId);
+        res.status(204).send();
+    });
 }
 export const studentController = new StudentController();
