@@ -11,8 +11,10 @@ class StudentController {
             email: body.email,
             className: body.className
         };
-        await studentService.create(studentInput);
-        res.status(200).json({ massage: "Success" });
+
+        const student = await studentService.create(studentInput);
+
+        res.status(200).json({ data: student });
     });
 
     updateProfile = catchAsync(async (req, res) => {

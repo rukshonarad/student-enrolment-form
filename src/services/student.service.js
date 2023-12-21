@@ -10,6 +10,7 @@ class StudentService {
                 id: true
             }
         });
+        return student;
     };
     updateProfile = async (id, input) => {
         try {
