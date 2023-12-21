@@ -7,7 +7,11 @@ class StudentService {
                 ...studentInput
             },
             select: {
-                id: true
+                id: true,
+                firstName: true,
+                lastName: true,
+                email: true,
+                className: true
             }
         });
         return student;
