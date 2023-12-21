@@ -35,10 +35,10 @@ class StudentService {
                     id: id
                 },
                 data: {
-                    firstName: input.firstName || existingStudent.firstName,
-                    lastName: input.lastName || existingStudent.lastName,
-                    email: input.email || existingStudent.email,
-                    className: input.className || existingStudent.className
+                    firstName,
+                    lastName,
+                    email,
+                    className
                 }
             });
 
