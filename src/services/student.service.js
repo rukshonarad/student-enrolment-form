@@ -16,38 +16,15 @@ class StudentService {
         });
         return student;
     };
-    updateProfile = async (id, input) => {
-        try {
-            const existingStudent = await prisma.student.findUnique({
-                where: {
-                    id: id
-                }
-            });
-
-            if (!existingStudent) {
-                return {
-                    error: "Student not found"
-                };
+    updateProfile = async (id, update) => {
+        const student = await prisma.student.update({
+            where: {
+                id
+            },
+            data: {
+                ...update
             }
-
-            const updatedStudent = await prisma.student.update({
-                where: {
-                    id: id
-                },
-                data: {
-                    firstName,
-                    lastName,
-                    email,
-                    className
-                }
-            });
-
-            return {
-                updatedStudent
-            };
-        } catch (error) {
-            throw new CustomError("Project does not exist", 404);
-        }
+        });
     };
     getOne = async (id, studentId) => {
         const student = await prisma.student.findUnique({

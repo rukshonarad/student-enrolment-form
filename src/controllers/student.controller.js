@@ -19,15 +19,42 @@ class StudentController {
 
     updateProfile = catchAsync(async (req, res) => {
         const {
-            params: { id },
-            body: { input }
+            body: { firstName, lastName, email, className },
+            params: { id }
         } = req;
 
-        const updatedStudent = await studentService.updateProfile(id, input);
+        const update = {};
 
-        res.status(200).json({
-            data: updatedStudent
-        });
+        if (firstName) {
+            update.firstName = firstName;
+        }
+        if (lastName) {
+            update.lastName = lastName;
+        }
+        if (email) {
+            update.email = email;
+        }
+        if (className) {
+            update.className = className;
+        }
+
+        if (
+            !(
+                update.firstName ||
+                update.lastName ||
+                update.email ||
+                update.className
+            )
+        ) {
+            throw new CustomError(
+                "At least one of the following fields is required: firstName, lastName, email, className",
+                400
+            );
+        }
+
+        await studentService.updateProfile(id, update);
+
+        res.status(204).send();
     });
     getOne = catchAsync(async (req, res) => {
         const { studentId, params } = req;
